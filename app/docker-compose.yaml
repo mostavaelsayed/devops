@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  my-app:
+    container_name: my-app
+    build:
+      dockerfile: ./app/Dockerfile
+      context: ../
+    ports:
+      - "3001:3001"
