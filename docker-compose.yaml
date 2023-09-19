@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  my-app-image:
+    container_name: my-application
+    build:
+      dockerfile: ./app/Dockerfile
+      context: .
+    ports:
+      - "3001:3001"
+  my-api-image:
+    container_name: my-api
+    build:
+      dockerfile: ./api/Dockerfile
+      context: .
+    ports:
+      - "5000:80"

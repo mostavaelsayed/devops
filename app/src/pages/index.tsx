@@ -4,7 +4,7 @@ export default function Home() {
   const [data, setData] = useState<any[]>([]);
   const getData = async () => {
     const response = await fetch(
-      "https://localhost:32774/WeatherForecast"
+      "http://localhost:5000/WeatherForecast"
     ).then((res) => res.json());
     setData(response);
   };

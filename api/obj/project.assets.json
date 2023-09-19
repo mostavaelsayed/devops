@@ -319,11 +319,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\repo\\devops\\devops-workshop\\devops\\api\\api\\api.csproj",
+      "projectUniqueName": "D:\\repo\\devops\\devops-workshop\\devops\\api\\api.csproj",
       "projectName": "api",
-      "projectPath": "D:\\repo\\devops\\devops-workshop\\devops\\api\\api\\api.csproj",
+      "projectPath": "D:\\repo\\devops\\devops-workshop\\devops\\api\\api.csproj",
       "packagesPath": "C:\\Users\\mostafa.elsayed\\.nuget\\packages\\",
-      "outputPath": "D:\\repo\\devops\\devops-workshop\\devops\\api\\api\\obj\\",
+      "outputPath": "D:\\repo\\devops\\devops-workshop\\devops\\api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
