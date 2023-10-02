@@ -1,4 +1,6 @@
 using api;
+using Microsoft.EntityFrameworkCore;
+using Weather.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+string dbConnString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<WeatherContext>(options =>
+{
+    options.UseSqlServer(dbConnString);
+});
+
 builder.Services.AddSwaggerGen();
 
 var corsSettings = builder.Configuration.GetSection("CorsSettings").Get<CorsSettingsOption>();

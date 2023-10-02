@@ -1,0 +1,11 @@
+
+*.dll
+*.vsidx
+*.vsidx
+*.exe
+*.tpl
+*.cache
+*.v2
+**/obj
+**/bin
+**/debug

@@ -7,7 +7,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-COPY --link ./app/package*.json ./
+COPY --link ./package*.json ./
 
 RUN npm ci
 
@@ -16,8 +16,7 @@ RUN npm ci
 FROM base AS builder
 
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY ./app .
+COPY . .
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
@@ -47,7 +46,7 @@ RUN adduser --disabled-password \
   --home /app \
   --gecos '' appuser && chown -R appuser /app
 
-COPY --from=builder /app/public ./public
+COPY --from=builder ./app/public ./public
 
 # Set the correct permission for prerender cache
 RUN mkdir .next

@@ -1,16 +1,36 @@
 version: "3.9"
 services:
-  my-app-image:
-    container_name: my-application
-    build:
-      dockerfile: ./app/Dockerfile
-      context: .
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server
+    volumes:
+      - c:/templatedata/data:/var/opt/mssql/data
+      - c:/templatedata/log:/var/opt/mssql/log
+      - c:/templatedata/secrets:/var/opt/mssql/secrets
+    environment:
+      SA_PASSWORD: "S3cur3P@ssW0rd!"
+      ACCEPT_EULA: "Y"
+    container_name: sqlserver
     ports:
-      - "3001:3001"
-  my-api-image:
-    container_name: my-api
-    build:
-      dockerfile: ./api/Dockerfile
-      context: .
+      - "15789:1433"
+  weather-api:
+    image: weatherapi
+    container_name: weather-api
+    build: ./api
     ports:
       - "5000:80"
+    depends_on:
+      - sqlserver
+    environment:
+      - ConnectionStrings__DefaultConnection=server=sqlserver;database=Weather;User Id=sa;Password=S3cur3P@ssW0rd!
+  weather-app:
+    stdin_open: true
+    tty: true
+    image: weatherapp
+    container_name: weather-app
+    build: ./app
+    volumes:
+      - ./app/src:/app/src
+    ports:
+      - "3001:3001"
+    depends_on:
+      - weather-api

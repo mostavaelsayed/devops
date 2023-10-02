@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Weather.Data;
 
 namespace api.Controllers
 {
@@ -12,15 +13,18 @@ namespace api.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly WeatherContext _weatherContext;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, WeatherContext weatherContext)
         {
             _logger = logger;
+            _weatherContext = weatherContext;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            var weathers = _weatherContext.WeatherForecasts.ToList();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
@@ -28,6 +32,22 @@ namespace api.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+
+            //try
+            //{
+            //    return _weatherContext.WeatherForecasts.ToList().Select(w => new WeatherForecast
+            //    {
+            //        Date = w.Date,
+            //        TemperatureC = w.TemperatureC,
+            //        Summary = w.Summary
+            //    })
+            //    .ToArray();
+            //}
+            //catch (Exception e)
+            //{
+            //    _logger.LogError("error while retrieve data", e.Message);
+            //    throw;
+            //}
         }
     }
 }
