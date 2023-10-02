@@ -16,6 +16,13 @@ builder.Services.AddDbContext<WeatherContext>(options =>
     options.UseSqlServer(dbConnString);
 });
 
+using (var serviceScope = builder.Services.BuildServiceProvider().CreateScope())
+{
+    var dbContext = serviceScope.ServiceProvider.GetRequiredService<WeatherContext>();
+    dbContext.Database.EnsureCreated();
+    dbContext.Database.Migrate();
+}
+
 builder.Services.AddSwaggerGen();
 
 var corsSettings = builder.Configuration.GetSection("CorsSettings").Get<CorsSettingsOption>();
