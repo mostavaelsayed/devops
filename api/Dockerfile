@@ -16,7 +16,8 @@ FROM build AS publish
 RUN dotnet publish api.csproj -c Release -o /app/publish /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS final
-
+RUN apk add --no-cache icu-libs
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 WORKDIR /app
 
 RUN adduser --disabled-password -u 10001 \

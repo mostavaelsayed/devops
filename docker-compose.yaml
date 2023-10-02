@@ -11,7 +11,7 @@ services:
       ACCEPT_EULA: "Y"
     container_name: sqlserver
     ports:
-      - "15789:1433"
+      - "1433:1433"
   weather-api:
     image: weatherapi
     container_name: weather-api
@@ -34,3 +34,7 @@ services:
       - "3001:3001"
     depends_on:
       - weather-api
+networks:
+  network1:
+    name: host
+    external: true
